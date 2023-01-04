@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Downloading tomcat server from Apache-tomcat Server
+      get_url:
+        url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.70/bin/apache-tomcat-9.0.70.tar.gz
+        dest: /etc/download_tom
+    - name: extract the tomcat server
+      unarchive:
+        src: /etc/download_tom/apache-tomcat-9.0.70.tar.gz
+        dest: /etc/tom_server
+        remote_src: yes
+    - name: start tomcat server
+      shell: /etc/tom_server/apache-tomcat-9.0.70/bin/startup.sh
